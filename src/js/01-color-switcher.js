@@ -26,23 +26,24 @@ function onStartBtnClick() {
 }
 
 function onStopBtnClick() {
-    //disActiveButtonClick();
+    activeButtonClick();
     clearInterval(timerId);
     //console.log(timerId);
 }
 
 function activeButtonClick(event) {
     if (!event){
-    startBtnEl.disabled = true;
-        }else{
-    stopBtnEl.disabled = false;
+    startBtnEl.setAttribute('disabled', true);
+    stopBtnEl.removeAttribute('disabled');
+    } else {
+        stopBtnEl.setAttribute('disabled', true);
+        startBtnEl.removeAttribute('disabled');
     }
 }
-
+/**
 function disActiveButtonClick(event) {
-    if (!event){
-    startBtnEl.disabled = true;
-        }else{
-    stopBtnEl.disabled = false;
+    if (!event) {
+        stopBtnEl.setAttribute('disabled', true);
+        startBtnEl.removeAttribute('disabled');
     }
-}
+}*/
