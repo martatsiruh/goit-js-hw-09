@@ -1,49 +1,54 @@
-import '../css/common.css';
-
 function getRandomHexColor() {
   return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 }
 
 const bodyEl = document.querySelector('body');
 const startBtnEl = document.querySelector("[data-start]");
-console.log(startBtnEl);
 const stopBtnEl = document.querySelector("[data-stop]");
-console.log(stopBtnEl);
+
 
 startBtnEl.addEventListener('click', onStartBtnClick);
 stopBtnEl.addEventListener('click', onStopBtnClick);
 
+const NOTIFICATION_DELAY = 1500;
 let timerId = null;
 
 
 function onStartBtnClick() {
-    activeButtonClick();
+    activeButtonClick('click');
     timerId = setInterval(() => {
+        console.log(timerId);
         bodyEl.style.backgroundColor = getRandomHexColor();
-    }, 1000);
-    //console.log(timerId)
-    
+    }, NOTIFICATION_DELAY);
+    stopBtnEl.style.borderColor = 'red';
+    startBtnEl.style.borderColor = '';
 }
 
 function onStopBtnClick() {
-    activeButtonClick();
+    disActiveButtonClick('click');
     clearInterval(timerId);
-    //console.log(timerId);
+    console.log(timerId);
+    startBtnEl.style.borderColor = 'green';
+    stopBtnEl.style.borderColor = '';
 }
 
-function activeButtonClick(event) {
-    if (!event){
-    startBtnEl.setAttribute('disabled', true);
-    stopBtnEl.removeAttribute('disabled');
-    } else {
+function activeButtonClick(e) {
+    if (e) {
+        //startBtnEl.disabled = true;
+        //stopBtnEl.disabled = false;
+        startBtnEl.setAttribute('disabled', true);
+        stopBtnEl.removeAttribute('disabled');
+    } /*else {
+        //startBtnEl.disabled = false;
+        //stopBtnEl.disabled = true;
+        stopBtnEl.setAttribute('disabled', true);
+        startBtnEl.removeAttribute('disabled');
+    }*/
+}
+
+function disActiveButtonClick(e) {
+    if (e) {
         stopBtnEl.setAttribute('disabled', true);
         startBtnEl.removeAttribute('disabled');
     }
 }
-/**
-function disActiveButtonClick(event) {
-    if (!event) {
-        stopBtnEl.setAttribute('disabled', true);
-        startBtnEl.removeAttribute('disabled');
-    }
-}*/
