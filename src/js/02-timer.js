@@ -40,6 +40,7 @@ const options = {
   }
 };
 
+startButtonEl.disabled = true;
 const NOTIFICATION_DELAY = 1000;
 
 function onStartBtnClick () {

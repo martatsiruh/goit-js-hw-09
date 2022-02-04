@@ -18,3 +18,42 @@ img {
 }
 
 
+#datetime-picker {
+  display: block;
+  border: 1px solid dimgrey;
+  margin: 0 auto;
+  padding: 10px;
+  font-size: 15px;
+}
+
+.timer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.field:not(:last-child) {
+  margin-right: 50px;
+}
+
+.value {
+  display: inline-block;
+  padding: 10px;
+  font-size: 40px;
+  border: 2px solid black;
+  margin-bottom: 10px;
+}
+
+.label {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
