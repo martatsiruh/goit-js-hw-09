@@ -23,57 +23,41 @@ const options = {
     defaultDate: new Date(),
     minuteIncrement: 1,
   onClose(selectedDates) {
-     
+    
     //вибрана дата
     console.log(selectedDates[0]);
-    //кількість мілісекунд,шо пройшло з 1.01.1970 - до сьогодні
-    const currentElectDateTime = Date.now();
-    console.log(currentElectDateTime);
-    //вибрана дата в мілісекундах
-    const selectedDateTime = selectedDates[0].getTime();
-    console.log(selectedDateTime)
-    if (selectedDateTime < currentElectDateTime) {
-      inputRef.style.borderColor = 'red';
+    console.log(new Date())
+    if (selectedDates[0] < new Date()) {
+      startButtonEl.disabled = true;
       Notiflix.Notify.warning('Please choose a date in the future')
     } else {
+      startButtonEl.disabled = false;
       Notiflix.Notify.success('To start the timer press the start button');
-      inputRef.style.borderColor = 'green';
 
+      startButtonEl.addEventListener('click', onStartBtnClick);
     }
     
   }
 };
 
-//const fp = flatpickr("#datetime-picker", options);
+const NOTIFICATION_DELAY = 1000;
 
-startButtonEl.addEventListener('click', onClickStartBtn);
-
-let is = false;
-function onClickStartBtn() {
-  if (is) {
-    return;
-  }
-  //планування визову фунції
-  let timerId = setInterval((selectedDateTime, currentElectDateTime) => {
-    const timeTimer = selectedDateTime - currentElectDateTime;
+function onStartBtnClick () {
+    let timerId = setInterval(() => {
+    let timeTimer = flat.selectedDates[0] - new Date();
     const saveDate = convertMs(timeTimer);
     contentTime(saveDate)
     console.log(saveDate);
 
-    //daysEl.textContent = saveDate.days;
-    //hoursEl.textContent = saveDate.hours;
-    //minutesEl.textContent = saveDate.minutes;
-    //secondsEl.textContent = saveDate.seconds;
-    if (saveDate < 1000) {
-          removeInterval(timerId);
-        }
-
-  }, 1000)
-  console.log(timerId);
+    if (saveDate < NOTIFICATION_DELAY) {
+      removeInterval(timerId);
+    }
+    }, NOTIFICATION_DELAY);
+        console.log(timerId)
 }
 
-function contentTime({ days, hours, minutes, seconds }){
-   
+function contentTime({ days, hours, minutes, seconds }) {
+  
   daysEl.textContent = days;
   hoursEl.textContent = hours;
   minutesEl.textContent = minutes;
@@ -88,7 +72,7 @@ function addLeadingZero(value){
   return String(value).padStart(2, "0");
 }
 
-flatpickr(inputRef, options);
+const flat = flatpickr(inputRef, options);
 
 function convertMs(ms) {
   // Number of milliseconds per unit of time
@@ -108,7 +92,3 @@ function convertMs(ms) {
 
   return { days, hours, minutes, seconds };
 }
-
-//console.log(convertMs(2000)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
-//console.log(convertMs(140000)); // {days: 0, hours: 0, minutes: 2, seconds: 20}
-//console.log(convertMs(24140000)); // {days: 0, hours: 6 minutes: 42, seconds: 20}
