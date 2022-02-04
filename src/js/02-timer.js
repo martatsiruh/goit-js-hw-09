@@ -9,6 +9,11 @@ import Notiflix from 'notiflix';
 // one by one
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
+Notiflix.Notify.init({
+  width: "400px",
+  cssAnimationStyle: 'from-right',
+});
+
 const inputRef = document.querySelector('#datetime-picker');
 const startButtonEl = document.querySelector('[data-start]');
 const daysEl = document.querySelector("[data-days]");

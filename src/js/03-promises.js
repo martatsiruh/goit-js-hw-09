@@ -1,26 +1,30 @@
 import Notiflix from 'notiflix';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
+Notiflix.Notify.init({
+  useIcon: false,
+  cssAnimationStyle: 'from-right',
+});
 
 const formPromises = document.querySelector('.form');
 //const amount = document.querySelector('[name = amount]');
-const firstDelaySteps = document.querySelector('[name= delay"]');
-const delaySteps = document.querySelector('[name= step"]');
-const amountSteps = document.querySelector('[name= amount"]');
+const firstDelaySteps = document.querySelector('[name = delay]');
+const delaySteps = document.querySelector('[name = step]');
+const amountSteps = document.querySelector('[name = amount]');
 
 function createPromise(position, delay) {
-  return new Promise((resolve, delay) => {
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
-  const shouldResolve = Math.random() > 0.3;
-  if (shouldResolve) {
-    // Fulfill
-    resolve({ position, delay });
-  } else {
-    // Reject
-    reject({ position, delay });
-  }
-}, delay);
-  })
+      const shouldResolve = Math.random() > 0.3;
+      if (shouldResolve) {
+        // Fulfill
+        resolve({ position, delay });
+      } else {
+        // Reject
+        reject({ position, delay });
+      }
+    }, delay);
+  });
 
 }
 
@@ -32,7 +36,7 @@ function onClickChangeInput(event) {
   const step = Number(delaySteps.value);
       console.log(step)
   const amount = Number(amountSteps.value);
-  console.log(amount);
+      console.log(amount);
   
   for (let i = 1; i <= amount; i += 1) {
     const newDelay = delay + step * (i - 1);
@@ -47,7 +51,6 @@ function onClickChangeInput(event) {
         Notiflix.Notify.failure(`Rejected promise ${position} in ${delay}ms`);
       });
   }
-
 }
 
 
