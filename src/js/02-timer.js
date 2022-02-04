@@ -1,4 +1,4 @@
-
+import './sass/main.scss';
 // Описан в документации
 import flatpickr from 'flatpickr';
 // Дополнительный импорт стилей
