@@ -26,7 +26,7 @@ const options = {
     
     //вибрана дата
     console.log(selectedDates[0]);
-    console.log(new Date())
+    console.log(new Date)
     if (selectedDates[0] < new Date()) {
       startButtonEl.disabled = true;
       Notiflix.Notify.warning('Please choose a date in the future')
@@ -42,19 +42,23 @@ const options = {
 
 startButtonEl.disabled = true;
 const NOTIFICATION_DELAY = 1000;
-
+let timerId = null;
 function onStartBtnClick () {
-    let timerId = setInterval(() => {
-    let timeTimer = flat.selectedDates[0] - new Date();
-    const saveDate = convertMs(timeTimer);
-    contentTime(saveDate)
-    console.log(saveDate);
+    timerId = setInterval(() => {
+      let timeTimer = flat.selectedDates[0] - new Date();
+      const saveDate = convertMs(timeTimer);
 
-    if (saveDate < NOTIFICATION_DELAY) {
-      removeInterval(timerId);
-    }
+      console.log(saveDate);
+
+      if (timeTimer > 0) {
+        contentTime(saveDate);
+      } else {
+        removeInterval(timerId);
+      }
+      //if (saveDate < NOTIFICATION_DELAY) {
+        //removeInterval(timerId);
+     // }
     }, NOTIFICATION_DELAY);
-        console.log(timerId)
 }
 
 function contentTime({ days, hours, minutes, seconds }) {
