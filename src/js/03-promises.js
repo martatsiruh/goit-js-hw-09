@@ -28,7 +28,7 @@ function createPromise(position, delay) {
 
 }
 
-function onClickChangeInput(event) {
+function onSubmitForm(event) {
   event.preventDefault();
 
   const delay = Number(firstDelaySteps.value);
@@ -55,5 +55,5 @@ function onClickChangeInput(event) {
 
 
 
-formPromises.addEventListener('submit', onClickChangeInput);
+formPromises.addEventListener('submit', onSubmitForm);
 
